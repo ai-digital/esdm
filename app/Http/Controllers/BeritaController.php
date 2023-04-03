@@ -29,7 +29,7 @@ class BeritaController extends Controller
     public function index()
     {
         $get_all = Berita::all();
-        return view('admin.berita.index', compact('get_all'));
+        return view('backend.berita.index', compact('get_all'));
     }
 
     /**
