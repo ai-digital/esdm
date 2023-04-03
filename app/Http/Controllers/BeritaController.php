@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class BeritaController extends Controller
 {
+    private String $icon = 'fa fa-file';
+
 
     public function berita_tinymce(Request $request)
     {
@@ -28,8 +31,12 @@ class BeritaController extends Controller
      */
     public function index()
     {
-        $get_all = Berita::all();
-        return view('backend.berita.index', compact('get_all'));
+        $title      = __('Berita');
+        $routeIndex = route('berita.index');
+        $icon = $this->icon;
+        $beritas = Berita::orderBy('id', 'DESC')->all();
+
+        return view('backend.berita.index', compact('beritas', 'title', 'icon', 'routeIndex'));
     }
 
     /**
@@ -138,5 +145,29 @@ class BeritaController extends Controller
         Berita::destroy($id);
         Alert::error('Berhasil Hapus Berita', 'Anda Telah Menghapus Berita!');
         return \redirect()->back();
+    }
+    public function getYajraDataTables()
+    {
+
+        $tables = DataTables::of($this->query())
+            ->addIndexColumn()
+            ->editColumn('tags', 'stisla.crud-example.tags')
+            ->editColumn('gambar', 'stisla.berita.gambar')
+            ->editColumn('tanggal', '{{\Carbon\Carbon::parse($created_at)->format("d/m/Y H:i:s")}}')
+            ->editColumn('created_at', '{{\Carbon\Carbon::parse($created_at)->format("Y-m-d H:i:s")}}')
+            ->editColumn('updated_at', '{{\Carbon\Carbon::parse($updated_at)->format("Y-m-d H:i:s")}}')
+            ->editColumn('action', function (Berita $berita) {
+                $user = auth()->user();
+                return view('stisla.berita.action', [
+                    'canUpdate' => $user->can('Berita Ubah'),
+                    'canDetail' => $user->can('Berita Detail'),
+                    'canDelete' => $user->can('Berita Hapus'),
+                    'item'      => $berita,
+                ]);
+            })
+            ->rawColumns(['tags', 'gambar',  'action'])
+            ->make(true);
+
+        return $tables;
     }
 }
