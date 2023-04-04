@@ -34,9 +34,12 @@ class BeritaController extends Controller
         $title      = __('Berita');
         $routeIndex = route('berita.index');
         $icon = $this->icon;
-        $beritas = Berita::orderBy('id', 'DESC')->all();
+        $query = Berita::orderBy('id', 'DESC')->all();
+        $routeCreate     = route('berita.create');
 
-        return view('backend.berita.index', compact('beritas', 'title', 'icon', 'routeIndex'));
+        $isYajra           = true;
+        $beritas = $this->getYajraDataTables($query);
+        return view('backend.berita.index', compact('beritas', 'title', 'icon', 'routeIndex', 'routeCreate', 'isYajra'));
     }
 
     /**
@@ -146,10 +149,10 @@ class BeritaController extends Controller
         Alert::error('Berhasil Hapus Berita', 'Anda Telah Menghapus Berita!');
         return \redirect()->back();
     }
-    public function getYajraDataTables()
+    public function getYajraDataTables($query)
     {
 
-        $tables = DataTables::of($this->query())
+        $tables = DataTables::of($query())
             ->addIndexColumn()
             ->editColumn('tags', 'stisla.crud-example.tags')
             ->editColumn('gambar', 'stisla.berita.gambar')
@@ -158,7 +161,7 @@ class BeritaController extends Controller
             ->editColumn('updated_at', '{{\Carbon\Carbon::parse($updated_at)->format("Y-m-d H:i:s")}}')
             ->editColumn('action', function (Berita $berita) {
                 $user = auth()->user();
-                return view('stisla.berita.action', [
+                return view('backend.berita.action', [
                     'canUpdate' => $user->can('Berita Ubah'),
                     'canDetail' => $user->can('Berita Detail'),
                     'canDelete' => $user->can('Berita Hapus'),

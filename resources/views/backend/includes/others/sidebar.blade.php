@@ -16,25 +16,22 @@
             <li class="menu-header">Post</li>
             <li class="nav-item dropdown {{ $type_menu === 'layout' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
-                    <span>Layout</span></a>
+                    <span>Berita</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('layout-default-layout') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('layout-default-layout') }}">Default Layout</a>
+                        <a class="nav-link" href="{{ url('layout-default-layout') }}">Tambah</a>
                     </li>
                     <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('transparent-sidebar') }}">Transparent Sidebar</a>
+                        <a class="nav-link" href="{{ url('transparent-sidebar') }}">Lihat</a>
                     </li>
-                    <li class="{{ Request::is('layout-top-navigation') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('layout-top-navigation') }}">Top Navigation</a>
-                    </li>
+
                 </ul>
             </li>
             <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('blank-page') }}"><i class="far fa-square"></i> <span>Blank
-                        Page</span></a>
+                <a class="nav-link" href="{{ url('blank-page') }}"><i class="far fa-square"></i> <span>Menu</span></a>
             </li>
             <li class="nav-item dropdown {{ $type_menu === 'bootstrap' ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Bootstrap</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Galeri</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('bootstrap-alert') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('bootstrap-alert') }}">Alert</a>
@@ -216,25 +213,20 @@
                     </li>
                 </ul>
             </li>
-            <li class="menu-header">Pages</li>
+            <li class="menu-header">Pengaturan</li>
             <li class="nav-item dropdown {{ $type_menu === 'auth' ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Auth</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>User</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('auth-forgot-password') ? 'active' : '' }}">
-                        <a href="{{ url('auth-forgot-password') }}">Forgot Password</a>
+                        <a href="{{ url('auth-forgot-password') }}">Lihat User</a>
                     </li>
                     <li class="{{ Request::is('auth-login') ? 'active' : '' }}">
-                        <a href="{{ url('auth-login') }}">Login</a>
+                        <a href="{{ url('auth-login') }}">Role Management</a>
                     </li>
                     <li class="{{ Request::is('auth-login2') ? 'active' : '' }}">
-                        <a class="beep beep-sidebar" href="{{ url('auth-login2') }}">Login 2</a>
+                        <a class="beep beep-sidebar" href="{{ url('auth-login2') }}">Permission</a>
                     </li>
-                    <li class="{{ Request::is('auth-register') ? 'active' : '' }}">
-                        <a href="{{ url('auth-register') }}">Register</a>
-                    </li>
-                    <li class="{{ Request::is('auth-reset-password') ? 'active' : '' }}">
-                        <a href="{{ url('auth-reset-password') }}">Reset Password</a>
-                    </li>
+
                 </ul>
             </li>
             <li class="nav-item dropdown {{ $type_menu === 'error' ? 'active' : '' }}">
@@ -292,9 +284,7 @@
                     <li class="{{ Request::is('utilities-invoice') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('utilities-invoice') }}">Invoice</a>
                     </li>
-                    <li class="{{ Request::is('utilities-subscribe') ? 'active' : '' }}">
-                        <a href="{{ url('utilities-subscribe') }}">Subscribe</a>
-                    </li>
+
                 </ul>
             </li>
             <li class="{{ Request::is('credits') ? 'active' : '' }}">
@@ -304,10 +294,6 @@
             </li>
         </ul>
 
-        <div class="hide-sidebar-mini mt-4 mb-4 p-3">
-            <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-                <i class="fas fa-rocket"></i> Documentation
-            </a>
-        </div>
+
     </aside>
 </div>
