@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
-    @include('backend.includes.others.meta-ttitle')
+    @include('backend.includes.others.meta-title')
     @include('backend.includes.others.css')
 
 
@@ -12,12 +12,12 @@
 
 <body>
     <div id="app">
-        <div class="main-wrapper">
-            <!-- Header -->
-            @include('backend.components.header')
 
+        <!-- Header -->
+        @include('backend.includes.others.header')
+        <div class="main-wrapper">
             <!-- Sidebar -->
-            @include('backend.components.sidebar')
+            @include('backend.includes.others.sidebar')
 
             <!-- Main Content -->
             <div class="main-content">
@@ -32,7 +32,7 @@
     </div>
 
     <!-- General JS Scripts -->
-@include('backend.includes.others.js')
+    @include('backend.includes.others.js')
 </body>
 
 </html>

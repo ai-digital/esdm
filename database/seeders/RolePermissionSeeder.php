@@ -26,7 +26,7 @@ class RolePermissionSeeder extends Seeder
                 'name' => $role,
             ]);
             if ($role === 'superadmin') {
-                $roleObj->is_locked = 1;
+              //  $roleObj->is_locked = 1;
                 $roleObj->save();
             }
         }

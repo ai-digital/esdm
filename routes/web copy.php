@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,24 +16,11 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::redirect('/', '/login');
-Route::get('/login', [LoginController::class, 'login'])->name('login.index')->middleware('guest');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login')->middleware('guest');
-
-Route::post('/logout', function () {
-    auth()->logout();
-    request()->session()->invalidate();
-    request()->session()->regenerateToken();
-
-    return redirect('/');
-})->name('logout')->middleware('auth');
-
-
+Route::redirect('/', '/dashboard-general-dashboard');
+Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 // Dashboard
-Route::get('/dashboard-general-dashboard', function () {
-    return view('backend.pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
-});
+
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);

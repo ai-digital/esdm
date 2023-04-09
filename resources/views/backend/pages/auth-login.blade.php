@@ -14,14 +14,17 @@
         </div>
 
         <div class="card-body">
-            <form method="POST" action="#" class="needs-validation" novalidate="">
-                <div class="form-group">
+            <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
+                <div class="form-group"> @csrf
                     <label for="email">Email</label>
                     <input id="email" type="email" class="form-control" name="email" tabindex="1" required
                         autofocus>
-                    <div class="invalid-feedback">
-                        Please fill in your email
-                    </div>
+                    @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
                 </div>
 
                 <div class="form-group">
@@ -34,9 +37,11 @@
                         </div>
                     </div>
                     <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    <div class="invalid-feedback">
-                        please fill in your password
-                    </div>
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -52,27 +57,13 @@
                     </button>
                 </div>
             </form>
-            <div class="mt-4 mb-3 text-center">
-                <div class="text-job text-muted">Login With Social</div>
-            </div>
-            <div class="row sm-gutters">
-                <div class="col-6">
-                    <a class="btn btn-block btn-social btn-facebook">
-                        <span class="fab fa-facebook"></span> Facebook
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a class="btn btn-block btn-social btn-twitter">
-                        <span class="fab fa-twitter"></span> Twitter
-                    </a>
-                </div>
-            </div>
+
 
         </div>
     </div>
-    <div class="text-muted mt-5 text-center">
+    {{-- <div class="text-muted mt-5 text-center">
         Don't have an account? <a href="auth-register.html">Create One</a>
-    </div>
+    </div> --}}
 @endsection
 
 @push('scripts')
