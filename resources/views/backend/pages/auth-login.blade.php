@@ -19,12 +19,14 @@
                     <label for="email">Email</label>
                     <input id="email" type="email" class="form-control" name="email" tabindex="1" required
                         autofocus>
-                    @error('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
 
+                    <div class="invalid-feedback">
+                        Please fill in your email
+                    </div>
+
+                    @if ($errors->has('email'))
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">
@@ -37,17 +39,26 @@
                         </div>
                     </div>
                     <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    @error('password')
+                    <div class="invalid-feedback">
+                        Please fill in your password
+                    </div>
+                    @if ($errors->has('password'))
                         <div class="invalid-feedback">
-                            {{ $message }}
+                            {{ $errors->first('password') }}
                         </div>
-                    @enderror
+                    @endif
                 </div>
                 <div class="form-group">
                     <div class="d-block">
-                        <label class="control-label"> Google Recaptcha</label>
-                        <div class="col-md-6"> {!! NoCaptcha::display() !!}
-                        </div>
+
+                        {!! NoCaptcha::display() !!}
+
+                        @if ($errors->has('g-recaptcha-response'))
+                            <span class="help-block">
+                                <strong> <span
+                                        class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span></strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group">

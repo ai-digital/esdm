@@ -11,7 +11,7 @@ use DataTables;
 
 class BeritaController extends Controller
 {
-    private String $icon = 'fa fa-file';
+    private string $icon = 'fa fa-file';
 
 
     public function berita_tinymce(Request $request)
@@ -32,13 +32,13 @@ class BeritaController extends Controller
     public function index(Request $request)
     {
 
-        $title      = __('Berita');
+        $title = __('Berita');
         $routeIndex = route('berita.index');
         $icon = $this->icon;
         $data = Berita::orderBy('id', 'DESC');
-        $routeCreate     = route('berita.create');
+        $routeCreate = route('berita.create');
         $type_menu = 'Dashboard';
-        $isYajra           = true;
+        $isYajra = true;
         // $beritas = $this->getYajraDataTables($query);
 
         if ($request->ajax()) {
@@ -53,7 +53,7 @@ class BeritaController extends Controller
 
                     return view('backend.berita.action');
                 })
-                ->rawColumns(['tags', 'gambar',  'action'])
+                ->rawColumns(['tags', 'gambar', 'action'])
                 ->make(true);
         }
         $user = auth()->user();
@@ -72,24 +72,24 @@ class BeritaController extends Controller
      */
     public function create(Request $request)
     {
-        $title      = __('Berita');
+        $title = __('Berita');
         $routeIndex = route('berita.index');
-        $fullTitle  = __('Tambah Berita');
+        $fullTitle = __('Tambah Berita');
         return view('backend.berita.form', [
-            'title'           => $title,
-            'fullTitle'       => $fullTitle,
-            'routeIndex'      => $routeIndex,
-            'action'          => route('berita.store'),
-            'moduleIcon'      => $this->icon,
-            'isDetail'        => false,
-            'breadcrumbs'     => [
+            'title' => $title,
+            'fullTitle' => $fullTitle,
+            'routeIndex' => $routeIndex,
+            'action' => route('berita.store'),
+            'moduleIcon' => $this->icon,
+            'isDetail' => false,
+            'breadcrumbs' => [
                 [
                     'label' => __('Dashboard'),
-                    'link'  => url('/')
+                    'link' => url('/')
                 ],
                 [
                     'label' => $title,
-                    'link'  => $routeIndex
+                    'link' => $routeIndex
                 ],
                 [
                     'label' => 'Tambah'
@@ -107,11 +107,11 @@ class BeritaController extends Controller
      */
     public function store(Request $request)
     {
-        $a = $request->file('thumbnail');
-        $b = $request->file('thumbnail')->getClientOriginalName();
+        $a = $request->file('gambar');
+        $b = $request->file('gambar')->getClientOriginalName();
 
         $c = Image::make($a->getRealPath())->resize(400, 200);
-        $d = '/storage/thumbnail_berita' . $b;
+        $d = '/storage/thumbnail/berita/' . $b;
         $c = Image::make($c)->save(\public_path() . $d);
 
         $x = new Berita();

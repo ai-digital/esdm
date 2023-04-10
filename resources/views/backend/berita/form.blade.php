@@ -105,12 +105,8 @@
     </div>
 @endsection
 
-@push('css')
-@endpush
-
-@push('js')
-@endpush
 
 @push('scripts')
+    <script src="{{ asset('stisla/library/summernote/dist/summernote-bs4.js') }}"></script>
     @include('backend.includes.scripts.disable-form')
 @endpush
