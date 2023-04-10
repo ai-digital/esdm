@@ -18,11 +18,11 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Berita</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('layout-default-layout') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('layout-default-layout') }}">Tambah</a>
+                    <li class="{{ Request::is('berita.tambah') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('/berita/tambah') }}">Tambah</a>
                     </li>
-                    <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('transparent-sidebar') }}">Lihat</a>
+                    <li class="{{ Request::is('berita.index') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('berita/') }}">Lihat</a>
                     </li>
 
                 </ul>

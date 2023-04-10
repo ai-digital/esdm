@@ -43,7 +43,13 @@
                         </div>
                     @enderror
                 </div>
-
+                <div class="form-group">
+                    <div class="d-block">
+                        <label class="control-label"> Google Recaptcha</label>
+                        <div class="col-md-6"> {!! NoCaptcha::display() !!}
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">

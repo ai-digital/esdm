@@ -1,243 +1,172 @@
 [
     {
         "name": "Profil",
-        "roles": ["superadmin", "admin", "user"],
-        "group": "Profil"
+        "roles": ["superadmin", "admin", "user"]
+
     },
     {
         "name": "Profil Ubah",
-        "roles": ["superadmin", "admin", "user"],
-        "group": "Profil"
+        "roles": ["superadmin", "admin", "user"]
+
     },
 
     {
         "name": "Log Aktivitas",
-        "roles": ["superadmin", "admin"],
-        "group": "Log Aktivitas"
+        "roles": ["superadmin", "admin"]
+
     },
     {
         "name": "Log Aktivitas Ekspor",
-        "roles": ["superadmin", "admin"],
-        "group": "Log Aktivitas"
+        "roles": ["superadmin", "admin"]
+
     },
 
     {
         "name": "Role",
-        "roles": ["superadmin"],
-        "group": "Role"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Role Tambah",
-        "roles": ["superadmin"],
-        "group": "Role"
+        "roles": ["superadmin"]
+
     },
-    {
-        "name": "Role Impor Excel",
-        "roles": ["superadmin"],
-        "group": "Role"
-    },
-    {
+     {
         "name": "Role Ubah",
-        "roles": ["superadmin"],
-        "group": "Role"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Role Detail",
-        "roles": ["superadmin"],
-        "group": "Role"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Role Hapus",
-        "roles": ["superadmin"],
-        "group": "Role"
+        "roles": ["superadmin"]
+
     },
-    {
-        "name": "Role Ekspor",
-        "roles": ["superadmin", "admin"],
-        "group": "Role"
-    },
+
 
     {
         "name": "Permission",
-        "roles": ["superadmin"],
-        "group": "Permission"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Permission Tambah",
-        "roles": ["superadmin"],
-        "group": "Permission"
+        "roles": ["superadmin"]
+
     },
-    {
-        "name": "Permission Impor Excel",
-        "roles": ["superadmin"],
-        "group": "Permission"
-    },
+
     {
         "name": "Permission Ubah",
-        "roles": ["superadmin"],
-        "group": "Permission"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Permission Detail",
-        "roles": ["superadmin"],
-        "group": "Permission"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Permission Hapus",
-        "roles": ["superadmin"],
-        "group": "Permission"
-    },
-    {
-        "name": "Permission Ekspor",
-        "roles": ["superadmin", "admin"],
-        "group": "Permission"
+        "roles": ["superadmin"]
+
     },
 
-    {
-        "name": "Group Permission",
-        "roles": ["superadmin"],
-        "group": "Group Permission"
-    },
-    {
-        "name": "Group Permission Tambah",
-        "roles": ["superadmin"],
-        "group": "Group Permission"
-    },
-    {
-        "name": "Group Permission Impor Excel",
-        "roles": ["superadmin"],
-        "group": "Group Permission"
-    },
-    {
-        "name": "Group Permission Ubah",
-        "roles": ["superadmin"],
-        "group": "Group Permission"
-    },
-    {
-        "name": "Group Permission Detail",
-        "roles": ["superadmin"],
-        "group": "Group Permission"
-    },
-    {
-        "name": "Group Permission Hapus",
-        "roles": ["superadmin"],
-        "group": "Group Permission"
-    },
-    {
-        "name": "Group Permission Ekspor",
-        "roles": ["superadmin", "admin"],
-        "group": "Group Permission"
-    },
+
 
     {
         "name": "Pengguna",
-        "roles": ["superadmin"],
-        "group": "Pengguna"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Pengguna Tambah",
-        "roles": ["superadmin"],
-        "group": "Pengguna"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Pengguna Impor Excel",
-        "roles": ["superadmin"],
-        "group": "Pengguna"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Pengguna Ubah",
-        "roles": ["superadmin"],
-        "group": "Pengguna"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Pengguna Detail",
-        "roles": ["superadmin"],
-        "group": "Pengguna"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Pengguna Hapus",
-        "roles": ["superadmin"],
-        "group": "Pengguna"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Pengguna Ekspor",
-        "roles": ["superadmin"],
-        "group": "Pengguna"
+        "roles": ["superadmin"]
+
     },
     {
         "name": "Pengguna Force Login",
-        "roles": ["superadmin"],
-        "group": "Pengguna"
+        "roles": ["superadmin"]
+
     },
 
     {
         "name": "Pengaturan",
-        "roles": ["superadmin", "admin"],
-        "group": "Pengaturan"
+        "roles": ["superadmin", "admin"]
+
     },
 
-    {
-        "name": "Manajemen File",
-        "roles": ["superadmin", "admin"],
-        "group": "Manajemen File"
-    },
+
 
     {
         "name": "Backup Database",
-        "roles": ["superadmin"],
-        "group": "Backup Database"
+        "roles": ["superadmin"]
+
     },
 
     {
         "name": "Log Viewer",
-        "roles": ["superadmin"],
-        "group": "Log Viewer"
+        "roles": ["superadmin"]
+
     },
 
     {
         "name": "Notifikasi",
-        "roles": ["superadmin", "admin"],
-        "group": "Notifikasi"
+        "roles": ["superadmin", "admin"]
+
     },
 
     {
-        "name": "Contoh CRUD",
-        "roles": ["superadmin", "admin", "user"],
-        "group": "Contoh CRUD"
+        "name": "Berita",
+        "roles": ["superadmin", "admin", "user"]
+
     },
     {
-        "name": "Contoh CRUD Tambah",
-        "roles": ["superadmin", "admin", "user"],
-        "group": "Contoh CRUD"
+        "name": "Berita Tambah",
+        "roles": ["superadmin", "admin", "user"]
+
+    },
+
+    {
+        "name": "Berita Ubah",
+        "roles": ["superadmin", "admin", "user"]
+
     },
     {
-        "name": "Contoh CRUD Impor Excel",
-        "roles": ["superadmin", "admin", "user"],
-        "group": "Contoh CRUD"
+        "name": "Berita Detail",
+        "roles": ["superadmin", "admin", "user"]
+
     },
     {
-        "name": "Contoh CRUD Ubah",
-        "roles": ["superadmin", "admin", "user"],
-        "group": "Contoh CRUD"
-    },
-    {
-        "name": "Contoh CRUD Detail",
-        "roles": ["superadmin", "admin", "user"],
-        "group": "Contoh CRUD"
-    },
-    {
-        "name": "Contoh CRUD Hapus",
-        "roles": ["superadmin", "admin", "user"],
-        "group": "Contoh CRUD"
-    },
-    {
-        "name": "Contoh CRUD Ekspor",
-        "roles": ["superadmin", "admin", "user"],
-        "group": "Contoh CRUD"
-    },
-    {
-        "name": "Contoh CRUD Yajra",
-        "roles": ["superadmin", "admin", "user"],
-        "group": "Contoh CRUD"
+        "name": "Berita Hapus",
+        "roles": ["superadmin", "admin", "user"]
     }
 ]

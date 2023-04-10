@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
-use Yajra\DataTables\Facades\DataTables;
+use DataTables;
 
 class BeritaController extends Controller
 {
@@ -29,17 +29,40 @@ class BeritaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $title      = __('Berita');
         $routeIndex = route('berita.index');
         $icon = $this->icon;
-        $query = Berita::orderBy('id', 'DESC')->all();
+        $data = Berita::orderBy('id', 'DESC');
         $routeCreate     = route('berita.create');
-
+        $type_menu = 'Dashboard';
         $isYajra           = true;
-        $beritas = $this->getYajraDataTables($query);
-        return view('backend.berita.index', compact('beritas', 'title', 'icon', 'routeIndex', 'routeCreate', 'isYajra'));
+        // $beritas = $this->getYajraDataTables($query);
+
+        if ($request->ajax()) {
+            $tables = DataTables::of($data)
+                ->addIndexColumn()
+                ->editColumn('tags', 'stisla.crud-example.tags')
+                ->editColumn('gambar', 'stisla.berita.gambar')
+                ->editColumn('tanggal', '{{\Carbon\Carbon::parse($created_at)->format("d/m/Y H:i:s")}}')
+                ->editColumn('created_at', '{{\Carbon\Carbon::parse($created_at)->format("Y-m-d H:i:s")}}')
+                ->editColumn('updated_at', '{{\Carbon\Carbon::parse($updated_at)->format("Y-m-d H:i:s")}}')
+                ->editColumn('action', function ($berita) {
+
+                    return view('backend.berita.action');
+                })
+                ->rawColumns(['tags', 'gambar',  'action'])
+                ->make(true);
+        }
+        $user = auth()->user();
+        $canCreate = $user->can('Berita Tambah');
+        $canUpdate = $user->can('Berita Ubah');
+        $canDetail = $user->can('Berita Detail');
+        $canDelete = $user->can('Berita Hapus');
+
+        return view('backend.berita.index', get_defined_vars());
     }
 
     /**
@@ -49,7 +72,31 @@ class BeritaController extends Controller
      */
     public function create(Request $request)
     {
-        return view('admin.berita.tambah');
+        $title      = __('Berita');
+        $routeIndex = route('berita.index');
+        $fullTitle  = __('Tambah Berita');
+        return view('backend.berita.form', [
+            'title'           => $title,
+            'fullTitle'       => $fullTitle,
+            'routeIndex'      => $routeIndex,
+            'action'          => route('berita.store'),
+            'moduleIcon'      => $this->icon,
+            'isDetail'        => false,
+            'breadcrumbs'     => [
+                [
+                    'label' => __('Dashboard'),
+                    'link'  => url('/')
+                ],
+                [
+                    'label' => $title,
+                    'link'  => $routeIndex
+                ],
+                [
+                    'label' => 'Tambah'
+                ]
+            ],
+            'type_menu' => 'Post',
+        ]);
     }
 
     /**
@@ -151,26 +198,5 @@ class BeritaController extends Controller
     }
     public function getYajraDataTables($query)
     {
-
-        $tables = DataTables::of($query())
-            ->addIndexColumn()
-            ->editColumn('tags', 'stisla.crud-example.tags')
-            ->editColumn('gambar', 'stisla.berita.gambar')
-            ->editColumn('tanggal', '{{\Carbon\Carbon::parse($created_at)->format("d/m/Y H:i:s")}}')
-            ->editColumn('created_at', '{{\Carbon\Carbon::parse($created_at)->format("Y-m-d H:i:s")}}')
-            ->editColumn('updated_at', '{{\Carbon\Carbon::parse($updated_at)->format("Y-m-d H:i:s")}}')
-            ->editColumn('action', function (Berita $berita) {
-                $user = auth()->user();
-                return view('backend.berita.action', [
-                    'canUpdate' => $user->can('Berita Ubah'),
-                    'canDetail' => $user->can('Berita Detail'),
-                    'canDelete' => $user->can('Berita Hapus'),
-                    'item'      => $berita,
-                ]);
-            })
-            ->rawColumns(['tags', 'gambar',  'action'])
-            ->make(true);
-
-        return $tables;
     }
 }

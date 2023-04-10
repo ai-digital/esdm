@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -14,17 +15,25 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+            'g-recaptcha-response' => 'required|captcha'
         ]);
+        if ($validator->fails()) {
+            return back()->with('message', 'Username atau Password Salah');
+        }
+
+        $credentials = array(
+            'email'      => $request->get('emailcom'),
+            'password'      => $request->get('password')
+        );
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             return redirect()->intended('home');
-        }
-        ;
+        };
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',

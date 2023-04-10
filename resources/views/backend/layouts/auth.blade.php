@@ -17,6 +17,7 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('stisla/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('stisla/css/components.css') }}">
+    {!! NoCaptcha::renderJs() !!}
     <!-- Start GA -->
     {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>

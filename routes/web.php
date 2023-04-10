@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\BeritaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,7 @@ Route::get('/dashboard-general-dashboard', function () {
     return view('backend.pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
 });
 Route::group(['middleware' => ['auth']], function () {
+    Route::resource('berita', BeritaController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);

@@ -14,17 +14,16 @@
         <p class="section-lead">{{ __('Menampilkan halaman ' . $title) }}.</p>
         <div class="row">
             <div class="col-12">
-                @if ($data->count() > 0 || $isYajra)
-
+                @if ($data->count() > 0)
                     <div class="card">
                         <div class="card-header">
-                            <h4><i class="{{ $moduleIcon }}"></i> Data {{ $title }}</h4>
+                            <h4><i class="{{ $icon }}"></i> Data {{ $title }}</h4>
 
                             <div class="card-header-action">
 
                                 @if ($canCreate)
-                                    @include('stisla.includes.forms.buttons.btn-add', [
-                                        'link' => $route_create,
+                                    @include('backend.includes.forms.buttons.btn-add', [
+                                        'link' => $routeCreate,
                                     ])
                                 @endif
                             </div>
@@ -32,15 +31,38 @@
                         <div class="card-body">
                             @include('backend.includes.forms.buttons.btn-datatable')
                             <div class="table-responsive">
-                                @include('backend.berita.table')
+
+                                <table class="table table-striped yajra-datatable">
+
+                                    <thead>
+                                        <tr>
+
+                                            <th>{{ __('No') }}</th>
+
+                                            <th>{{ __('Tanggal') }}</th>
+                                            <th>{{ __('Judul') }}</th>
+                                            <th>{{ __('Gambar') }}</th>
+                                            <th>{{ __('Tags') }}</th>
+                                            <th>{{ __('Kategori') }}</th>
+
+                                            <th>{{ __('Created At') }}</th>
+                                            <th>{{ __('Updated At') }}</th>
+                                            @if ($canUpdate || $canDelete || $canDetail)
+                                                <th>{{ __('Aksi') }}</th>
+                                            @endif
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 @else
                     @include('backend.includes.others.empty-state', [
                         'title' => 'Data ' . $title,
-                        'icon' => $moduleIcon,
-                        'link' => $route_create,
+                        'icon' => $icon,
+                        'link' => $routeCreate,
                     ])
                 @endif
             </div>
@@ -57,7 +79,7 @@
             var table = $('.yajra-datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('berita.ajax') }}",
+                ajax: "{{ route('berita.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -100,5 +122,4 @@
 
         });
     </script>
-    @endif
 @endpush
