@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Categories;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use DataTables;
 
 class BeritaController extends Controller
@@ -75,9 +77,11 @@ class BeritaController extends Controller
         $title = __('Berita');
         $routeIndex = route('berita.index');
         $fullTitle = __('Tambah Berita');
+        $kategories = Categories::pluck('nama_kategori', 'id');
         return view('backend.berita.form', [
             'title' => $title,
             'fullTitle' => $fullTitle,
+            'kategories' => $kategories,
             'routeIndex' => $routeIndex,
             'action' => route('berita.store'),
             'moduleIcon' => $this->icon,
@@ -108,18 +112,22 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         $a = $request->file('gambar');
-        $b = $request->file('gambar')->getClientOriginalName();
+        $b = Str::random(40) . '.' . $a->getClientOriginalExtension();
 
         $c = Image::make($a->getRealPath())->resize(400, 200);
         $d = '/storage/thumbnail/berita/' . $b;
         $c = Image::make($c)->save(\public_path() . $d);
+        $e = Image::make($a)->save(\public_path('/storage/berita/' . $b));
 
         $x = new Berita();
         $x->judul = $request->judul;
-        $x->isi_berita = $request->isi_berita;
+        $x->isi_berita = $request->isi;
+        $x->kategori_id = $request->kategori_id;
+        $x->tags = $request->tags;
+        $x->gambar = '/storage/berita/' . $b;
         $x->thumbnail = $d;
         $x->slug = Str::slug($request->judul);
-
+        $x->user_id = auth()->user()->id;
         $x->save();
 
         Alert::success('Berita Sudah Diinput ke Sistem!', 'Anda Telah Menginput Berita!');

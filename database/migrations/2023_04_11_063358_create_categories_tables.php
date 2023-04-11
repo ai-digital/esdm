@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('beritas', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('judul')->nullable();
-            $table->text('isi_berita')->nullable();
-            $table->string('slug')->nullable()->default('text');
-            $table->string('thumbnail')->nullable()->default('text');
+            $table->string('nama_kategori');
+            $table->string('slugs')->nullable();
+            $table->bigInteger('user_id')->unsigned()->index()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('beritas');
+        Schema::dropIfExists('categories');
     }
 };

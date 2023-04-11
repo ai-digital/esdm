@@ -58,13 +58,15 @@
                                     ])
                                 </div>
                                 <div class="col-md-6">
-                                    @include('backend.includes.forms.inputs.input', [
-                                        'required' => true,
-                                        'name' => 'kategori',
-                                        'type' => 'text',
+                                    @include('backend.includes.forms.selects.select', [
+                                        'id' => 'kategori_id',
+                                        'name' => 'kategori_id',
+                                        'options' => $kategories,
                                         'label' => 'Kategori',
+                                        'required' => true,
                                     ])
                                 </div>
+
                                 <div class="col-md-12">
                                     @include('backend.includes.forms.editors.summernote', [
                                         'required' => true,
