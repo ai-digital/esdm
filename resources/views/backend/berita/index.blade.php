@@ -1,9 +1,10 @@
-@extends('backend.layouts.app')
+@extends('backend.layouts.app-table')
 
 @section('title', 'Berita')
 
 @push('style')
-    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('stisla/library/datatables/media/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
 @endpush
 
 @section('content')
@@ -29,10 +30,10 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            @include('backend.includes.forms.buttons.btn-datatable')
+
                             <div class="table-responsive">
 
-                                <table class="table table-striped yajra-datatable">
+                                <table class="table-striped table yajra-datatable" id="table-1">
 
                                     <thead>
                                         <tr>
@@ -46,7 +47,7 @@
                                             <th>{{ __('Kategori') }}</th>
 
                                             <th>{{ __('Created At') }}</th>
-                                            <th>{{ __('Updated At') }}</th>
+
                                             @if ($canUpdate || $canDelete || $canDetail)
                                                 <th>{{ __('Aksi') }}</th>
                                             @endif
@@ -72,8 +73,15 @@
 
 @endsection
 
+
 @push('scripts')
     <!-- Page Specific JS File -->
+
+    <script src="{{ asset('stisla/library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+
+    <script src="{{ asset('stisla/library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+
+    <script src="{{ asset('stisla/js/page/modules-datatables.js') }}"></script>
     <script>
         $(function() {
             var table = $('.yajra-datatable').DataTable({
@@ -107,15 +115,20 @@
                     },
 
                     {
-                        data: 'kategori',
-                        name: 'kategori'
+                        data: 'kategori_id',
+                        name: 'kategori_id'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
                     },
 
                     {
                         data: 'action',
                         name: 'action',
-                        orderable: true,
-                        searchable: true
+                        orderable: false,
+                        searchable: false,
+
                     },
                 ]
             });

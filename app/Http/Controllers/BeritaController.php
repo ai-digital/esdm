@@ -15,17 +15,15 @@ class BeritaController extends Controller
 {
     private string $icon = 'fa fa-file';
 
-
-    public function berita_tinymce(Request $request)
+    public function __construct()
     {
-        $file = $request->file('file');
-        $path = url('storage/berita/') . '/' . $file->getClientOriginalName();
-        $imgpath = $file->move(public_path('storage/berita/'), $file->getClientOriginalName());
-        $fileNameToStore = $path;
 
-        return json_encode(['location' => $fileNameToStore]);
+        $this->middleware('can:Berita');
+        $this->middleware('can:Berita Tambah')->only(['create', 'store']);
+        $this->middleware('can:Berita Ubah')->only(['edit', 'update']);
+        $this->middleware('can:Berita Detail')->only(['show']);
+        $this->middleware('can:Berita Hapus')->only(['destroy']);
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -34,38 +32,43 @@ class BeritaController extends Controller
     public function index(Request $request)
     {
 
+        // if ($request->ajax()) {
         $title = __('Berita');
         $routeIndex = route('berita.index');
         $icon = $this->icon;
-        $data = Berita::orderBy('id', 'DESC');
+        $data = Berita::orderBy('id', 'DESC')->get();
         $routeCreate = route('berita.create');
         $type_menu = 'Dashboard';
         $isYajra = true;
         // $beritas = $this->getYajraDataTables($query);
-
+        $user = auth()->user();
         if ($request->ajax()) {
-            $tables = DataTables::of($data)
+            return DataTables::of($data)
                 ->addIndexColumn()
-                ->editColumn('tags', 'stisla.crud-example.tags')
-                ->editColumn('gambar', 'stisla.berita.gambar')
+                ->editColumn('tags', 'backend.berita.tags')
+                ->editColumn('gambar', 'backend.berita.gambar')
                 ->editColumn('tanggal', '{{\Carbon\Carbon::parse($created_at)->format("d/m/Y H:i:s")}}')
                 ->editColumn('created_at', '{{\Carbon\Carbon::parse($created_at)->format("Y-m-d H:i:s")}}')
                 ->editColumn('updated_at', '{{\Carbon\Carbon::parse($updated_at)->format("Y-m-d H:i:s")}}')
-                ->editColumn('action', function ($berita) {
+                ->editColumn('action', function ($item) {
+                    $user = auth()->user();
+                    $canUpdate = $user->can('Berita Ubah');
+                    $canDetail = $user->can('Berita Detail');
+                    $canDelete = $user->can('Berita Hapus');
 
-                    return view('backend.berita.action');
+                    return view('backend.berita.action', compact('canUpdate', 'canDetail', 'canDelete', 'item'));
                 })
                 ->rawColumns(['tags', 'gambar', 'action'])
                 ->make(true);
         }
-        $user = auth()->user();
+
         $canCreate = $user->can('Berita Tambah');
         $canUpdate = $user->can('Berita Ubah');
         $canDetail = $user->can('Berita Detail');
         $canDelete = $user->can('Berita Hapus');
-
         return view('backend.berita.index', get_defined_vars());
     }
+
 
     /**
      * Show the form for creating a new resource.
