@@ -10,6 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
+use Nette\Utils\Random;
 
 class BeritaController extends Controller
 {
@@ -40,13 +41,18 @@ class BeritaController extends Controller
         $routeCreate = route('berita.create');
         $type_menu = 'Dashboard';
         $isYajra = true;
-        // $beritas = $this->getYajraDataTables($query);
-        $user = auth()->user();
+
+
+
+
         if ($request->ajax()) {
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->editColumn('tags', 'backend.berita.tags')
                 ->editColumn('gambar', 'backend.berita.gambar')
+                ->editColumn('kategori_id', function ($row) {
+                    return $row->kategori->nama_kategori;
+                })
                 ->editColumn('tanggal', '{{\Carbon\Carbon::parse($created_at)->format("d/m/Y H:i:s")}}')
                 ->editColumn('created_at', '{{\Carbon\Carbon::parse($created_at)->format("Y-m-d H:i:s")}}')
                 ->editColumn('updated_at', '{{\Carbon\Carbon::parse($updated_at)->format("Y-m-d H:i:s")}}')
@@ -55,13 +61,12 @@ class BeritaController extends Controller
                     $canUpdate = $user->can('Berita Ubah');
                     $canDetail = $user->can('Berita Detail');
                     $canDelete = $user->can('Berita Hapus');
-
                     return view('backend.berita.action', compact('canUpdate', 'canDetail', 'canDelete', 'item'));
                 })
                 ->rawColumns(['tags', 'gambar', 'action'])
                 ->make(true);
         }
-
+        $user = auth()->user();
         $canCreate = $user->can('Berita Tambah');
         $canUpdate = $user->can('Berita Ubah');
         $canDetail = $user->can('Berita Detail');
@@ -114,26 +119,51 @@ class BeritaController extends Controller
      */
     public function store(Request $request)
     {
-        $a = $request->file('gambar');
-        $b = Str::random(40) . '.' . $a->getClientOriginalExtension();
+        $validasi = $this->validate($request, [
+            'judul' => 'required|min:5|max:200',
+            'tanggal' => 'required',
+            'isi_berita' => 'required',
 
-        $c = Image::make($a->getRealPath())->resize(400, 200);
-        $d = '/storage/thumbnail/berita/' . $b;
-        $c = Image::make($c)->save(\public_path() . $d);
-        $e = Image::make($a)->save(\public_path('/storage/berita/' . $b));
+        ]);
+        if (!$validasi) {
+            Alert::error('Gagal!', 'Tolong di cek lagi form!');
 
+            return \redirect()->back();
+        }
+        //---image resize-- //
+
+        $slug = Str::slug($request->judul);
+
+        $image = $request->file('gambar'); //image
+        $b = Str::limit($slug, 32, '-' . time()) . '.' . $image->getClientOriginalExtension(); //rename
+
+        //create thumbnail
+        $thumb = Image::make($image->getRealPath())->resize(128, 128, function ($constraint) {
+            $constraint->aspectRatio(); //keep aspect ratio
+        });
+
+        $path = '/storage/thumbnail/berita/' . $b;
+        $thumb = Image::make($thumb)->save(\public_path() . $path);
+        $gambar = Image::make($image->getRealPath())->resize(1024, 768, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $e = Image::make($gambar)->save(\public_path('/storage/berita/' . $b));
+        // ---! end image resize !---//
+
+        // --- save to database ---// $slug = Str::slug($request->judul);
         $x = new Berita();
-        $x->judul = $request->judul;
-        $x->isi_berita = $request->isi;
+        $x->judul = Str::title($request->judul);
+        $x->isi_berita = $request->isi_berita;
+        $x->tanggal = $request->tanggal;
         $x->kategori_id = $request->kategori_id;
         $x->tags = $request->tags;
         $x->gambar = '/storage/berita/' . $b;
-        $x->thumbnail = $d;
-        $x->slug = Str::slug($request->judul);
+        $x->thumbnail = $path;
+        $x->slug = $slug;
         $x->user_id = auth()->user()->id;
         $x->save();
 
-        Alert::success('Berita Sudah Diinput ke Sistem!', 'Anda Telah Menginput Berita!');
+        Alert::success('Berhasil!', 'Anda Telah Menginput Berita!');
 
         return \redirect()->route('berita.index');
     }
@@ -148,18 +178,62 @@ class BeritaController extends Controller
     {
         //
     }
+    /**
+     * get detail data
+     *
+     * @param Berita $Berita
+     * @param bool $isDetail
+     * @return array
+     */
+    private function getDetail(Berita $berita, bool $isDetail = false)
+    {
 
+        $title       = __('Berita Edit');
+        $routeIndex  = route('berita.index');
+        $kategories = Categories::pluck('nama_kategori', 'id');
+        $breadcrumbs = [
+            [
+                'label' => __('Dashboard'),
+                'link'  => url('/home')
+            ],
+            [
+                'label' => $title,
+                'link'  => $routeIndex
+            ],
+            [
+                'label' => $isDetail ? 'Detail' : 'Ubah'
+            ]
+        ];
+
+        return [
+
+            'd'               => $berita,
+            'gambar'           => $berita->gambar,
+            'title'           => $title,
+            'fullTitle'       => $isDetail ? __('Detail Berita') : __('Ubah Berita'),
+            'routeIndex'      => $routeIndex,
+            'action'          => route('berita.update', [$berita->id]),
+            'moduleIcon'      => $this->icon,
+            'kategories'      => $kategories,
+            'isDetail'        => $isDetail,
+            'breadcrumbs'     => $breadcrumbs,
+            'type_menu' => 'Post',
+        ];
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Berita  $berita
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($berita)
     {
-        $b = Berita::find($id);
+        $berita = Berita::find($berita);
 
-        return view('admin.berita.edit', compact('b'));
+
+        $data = $this->getDetail($berita);
+
+        return view('backend.berita.form', $data);
     }
 
     /**
@@ -172,23 +246,40 @@ class BeritaController extends Controller
     public function update(Request $request, $id)
     {
         $bb = Berita::find($id);
+        //  dd($request->gambar);
+        $slug = Str::slug($request->judul);
+        if ($request->hasFile('gambar')) {
+            @unlink(\public_path($bb->gambar));
+            @unlink(\public_path($bb->thumbnail));
+            $image = $request->file('gambar'); //image
+            $b = Str::limit($slug, 32, '-' . time()) . '.' . $image->getClientOriginalExtension(); //rename
 
-        if ($request->hasFile('thumbnail')) {
-            $a = $request->file('thumbnail');
-            $b = $request->file('thumbnail')->getClientOriginalName();
-
-            $c = Image::make($a->getRealPath())->resize(400, 200);
-            $d = '/storage/thumbnail_berita' . $b;
-            $c = Image::make($c)->save(\public_path() . $d);
-            $data_path = $d;
+            //create thumbnail
+            $thumb = Image::make($image->getRealPath())->resize(128, 128, function ($constraint) {
+                $constraint->aspectRatio(); //keep aspect ratio
+            });
+            $path = '/storage/thumbnail/berita/' . $b;
+            $thumb = Image::make($thumb)->save(\public_path() . $path);
+            $gambar = Image::make($image->getRealPath())->resize(1024, 768, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $e = Image::make($gambar)->save(\public_path('/storage/berita/' . $b));
+            $gbr = '/storage/berita/' . $b;
+            $thb = $path;
         } else {
-            $data_path = $bb->thumbnail;
+            $thb = $bb->thumbnail;
+            $gbr = $bb->gambar;
         }
 
         $bb->judul = $request->judul;
+
+        $bb->tanggal = $request->tanggal;
         $bb->isi_berita = $request->isi_berita;
-        $bb->thumbnail = $data_path;
-        $bb->slug = Str::slug($request->judul);
+        $bb->kategori_id = $request->kategori_id;
+        $bb->gambar = $gbr;
+        $bb->thumbnail = $thb;
+        $bb->slug = $slug;
+        $bb->tags = $request->tags;
         $bb->save();
 
         Alert::success('Berhasil Edit Berita', 'Anda Telah Mengedit Berita!');

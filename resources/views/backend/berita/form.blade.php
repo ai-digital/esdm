@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @include('sweetalert::alert')
     <div class="section-header">
         <h1>{{ $title }}</h1>
         @include('backend.includes.breadcrumbs.breadcrumb', [
@@ -32,12 +33,12 @@
 
                             @isset($d)
                                 @method('PUT')
-                                @include('backend.includes.forms.inputs.input', [
+                                {{-- @include('backend.includes.forms.inputs.input', [
                                     'required' => true,
                                     'name' => 'id',
                                     'label' => 'id',
                                     'readonly' => 'true',
-                                ])
+                                ]) --}}
                             @endisset
 
                             @csrf
@@ -70,9 +71,9 @@
                                 <div class="col-md-12">
                                     @include('backend.includes.forms.editors.summernote', [
                                         'required' => true,
-                                        'name' => 'isi',
-                                        'label' => 'isi',
-                                        'id' => 'isi',
+                                        'name' => 'isi_berita',
+                                        'label' => 'isi_berita',
+                                        'id' => 'isi_berita',
                                     ])
                                 </div>
                                 <div class="col-md-6">
@@ -88,8 +89,12 @@
                                         'required' => isset($d) ? false : true,
                                         'name' => 'gambar',
                                         'type' => 'file',
-                                        'label' => 'File',
+                                        'label' => 'Gambar',
+                                        'accept' => '.png, .jpg, .jpeg,.bmp',
                                     ])
+                                    @isset($d)
+                                        @include('backend.berita.gambar')
+                                    @endisset
                                 </div>
 
                                 <div class="col-md-12" id="formAreaButton">

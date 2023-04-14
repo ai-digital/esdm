@@ -1,4 +1,4 @@
-@extends('backend.layouts.app-table')
+@extends('backend.layouts.app')
 
 @section('title', 'Berita')
 
@@ -8,6 +8,7 @@
 @endpush
 
 @section('content')
+    @include('sweetalert::alert')
     @include('backend.includes.breadcrumbs.breadcrumb-table')
 
     <div class="section-body">
@@ -81,7 +82,6 @@
 
     <script src="{{ asset('stisla/library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
-    <script src="{{ asset('stisla/js/page/modules-datatables.js') }}"></script>
     <script>
         $(function() {
             var table = $('.yajra-datatable').DataTable({
@@ -135,4 +135,8 @@
 
         });
     </script>
+    <script src="{{ asset('stisla/library/sweetalert/dist/sweetalert.min.js') }}"></script>
+
+
+    <script src="{{ asset('stisla/js/page/modules-sweetalert.js') }}"></script>
 @endpush

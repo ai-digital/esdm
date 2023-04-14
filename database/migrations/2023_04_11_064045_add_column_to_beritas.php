@@ -31,7 +31,10 @@ return new class extends Migration
     public function down()
     {
         Schema::table('beritas', function (Blueprint $table) {
-            //
+            $table->dropColumn('gambar');
+            $table->dropColumn('kategori_id');
+            $table->dropColumn('tags');
+            $table->dropColumn('user_id');
         });
     }
 };
