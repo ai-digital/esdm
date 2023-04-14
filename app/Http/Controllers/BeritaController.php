@@ -174,9 +174,12 @@ class BeritaController extends Controller
      * @param  \App\Models\Berita  $berita
      * @return \Illuminate\Http\Response
      */
-    public function show(Berita $berita)
+    public function show($berita)
     {
-        //
+        $berita = Berita::find($berita);
+        $data = $this->getDetail($berita, true);
+
+        return view('backend.berita.form', $data);
     }
     /**
      * get detail data
@@ -294,11 +297,18 @@ class BeritaController extends Controller
      */
     public function destroy($id)
     {
-        Berita::destroy($id);
-        Alert::error('Berhasil Hapus Berita', 'Anda Telah Menghapus Berita!');
-        return \redirect()->back();
-    }
-    public function getYajraDataTables($query)
-    {
+        try {
+
+            $bb = Berita::find($id);
+            @unlink(\public_path($bb->gambar));
+            @unlink(\public_path($bb->thumbnail));
+
+            Berita::destroy($id);
+            Alert::error('Berhasil Hapus Berita', 'Anda Telah Menghapus Berita!');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+
+            return \redirect()->back()->with('errorMessage', $e->getMessage());
+        }
     }
 }

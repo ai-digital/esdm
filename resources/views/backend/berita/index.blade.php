@@ -139,4 +139,44 @@
 
 
     <script src="{{ asset('stisla/js/page/modules-sweetalert.js') }}"></script>
+    <script>
+        var SIDEBAR_MINI = false;
+        $(function() {
+            if (window.innerWidth <= 425) {
+                $('.btn-save-form').addClass('btn-block');
+                $('.btn-reset-form').addClass('btn-block');
+            }
+        });
+
+        function deleteGlobal(e, action_url) {
+            e.preventDefault();
+            swal({
+                    title: 'Anda yakin?',
+                    text: 'Sekali dihapus, data tidak akan kembali lagi!',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                    buttons: {
+                        cancel: {
+                            text: "Batal",
+                            value: null,
+                            visible: true,
+                            className: "",
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: "Lanjutkan",
+                        }
+                    }
+                })
+                .then(function(willDelete) {
+                    if (willDelete) {
+                        $('#formDeleteGlobal').attr('action', action_url);
+                        document.getElementById('formDeleteGlobal').submit();
+                    } else {
+                        swal('Info', 'Okay, tidak jadi', 'info');
+                    }
+                });
+        }
+    </script>
 @endpush

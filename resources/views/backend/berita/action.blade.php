@@ -1,5 +1,10 @@
 @if ($canUpdate || $canDelete || $canDetail)
     <td>
+        @if ($canDetail)
+            @include('backend.includes.forms.buttons.btn-detail', [
+                'link' => route('berita.show', [$item->id]),
+            ])
+        @endif
         @if ($canUpdate)
             @include('backend.includes.forms.buttons.btn-edit', [
                 'link' => route('berita.edit', [$item->id]),
@@ -10,10 +15,6 @@
                 'link' => route('berita.destroy', [$item->id]),
             ])
         @endif
-        @if ($canDetail)
-            @include('backend.includes.forms.buttons.btn-detail', [
-                'link' => route('berita.show', [$item->id]),
-            ])
-        @endif
+
     </td>
 @endif

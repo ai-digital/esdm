@@ -14,14 +14,14 @@
 
             </li>
             <li class="menu-header">Post</li>
-            <li class="nav-item dropdown {{ $type_menu === 'layout' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ request()->is('berita*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Berita</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('berita.tambah') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/berita/tambah') }}">Tambah</a>
+                    <li class="{{ request()->is('berita/create') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('/berita/create') }}">Tambah</a>
                     </li>
-                    <li class="{{ Request::is('berita.index') ? 'active' : '' }}">
+                    <li class="{{ request()->is('berita*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('berita/') }}">Lihat</a>
                     </li>
 
