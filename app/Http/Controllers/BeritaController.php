@@ -14,7 +14,7 @@ use Nette\Utils\Random;
 
 class BeritaController extends Controller
 {
-    private string $icon = 'fa fa-file';
+    private string $icon = 'far fa-file-alt';
 
     public function __construct()
     {
@@ -191,17 +191,17 @@ class BeritaController extends Controller
     private function getDetail(Berita $berita, bool $isDetail = false)
     {
 
-        $title       = __('Berita Edit');
-        $routeIndex  = route('berita.index');
+        $title = __('Berita Edit');
+        $routeIndex = route('berita.index');
         $kategories = Categories::pluck('nama_kategori', 'id');
         $breadcrumbs = [
             [
                 'label' => __('Dashboard'),
-                'link'  => url('/home')
+                'link' => url('/home')
             ],
             [
                 'label' => $title,
-                'link'  => $routeIndex
+                'link' => $routeIndex
             ],
             [
                 'label' => $isDetail ? 'Detail' : 'Ubah'
@@ -210,16 +210,16 @@ class BeritaController extends Controller
 
         return [
 
-            'd'               => $berita,
-            'gambar'           => $berita->gambar,
-            'title'           => $title,
-            'fullTitle'       => $isDetail ? __('Detail Berita') : __('Ubah Berita'),
-            'routeIndex'      => $routeIndex,
-            'action'          => route('berita.update', [$berita->id]),
-            'moduleIcon'      => $this->icon,
-            'kategories'      => $kategories,
-            'isDetail'        => $isDetail,
-            'breadcrumbs'     => $breadcrumbs,
+            'd' => $berita,
+            'gambar' => $berita->gambar,
+            'title' => $title,
+            'fullTitle' => $isDetail ? __('Detail Berita') : __('Ubah Berita'),
+            'routeIndex' => $routeIndex,
+            'action' => route('berita.update', [$berita->id]),
+            'moduleIcon' => $this->icon,
+            'kategories' => $kategories,
+            'isDetail' => $isDetail,
+            'breadcrumbs' => $breadcrumbs,
             'type_menu' => 'Post',
         ];
     }

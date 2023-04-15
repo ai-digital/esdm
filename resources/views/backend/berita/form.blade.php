@@ -72,7 +72,7 @@
                                     @include('backend.includes.forms.editors.summernote', [
                                         'required' => true,
                                         'name' => 'isi_berita',
-                                        'label' => 'isi_berita',
+                                        'label' => 'Isi berita',
                                         'id' => 'isi_berita',
                                     ])
                                 </div>

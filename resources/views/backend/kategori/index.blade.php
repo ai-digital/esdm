@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', 'Berita')
+@section('title', 'Kategori')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('stisla/library/datatables/media/css/jquery.dataTables.min.css') }}">
@@ -26,7 +26,7 @@
                                 @if ($canCreate)
                                     @include('backend.includes.forms.buttons.btn-add', [
                                         'link' => $routeCreate,
-                                        'label' => 'Tambah Berita',
+                                        'label' => 'Tambah Kategori',
                                     ])
                                 @endif
                             </div>
@@ -42,15 +42,11 @@
 
                                             <th>{{ __('No') }}</th>
 
-                                            <th>{{ __('Tanggal') }}</th>
-                                            <th>{{ __('Judul') }}</th>
-                                            <th>{{ __('Gambar') }}</th>
-                                            <th>{{ __('Tags') }}</th>
                                             <th>{{ __('Kategori') }}</th>
 
                                             <th>{{ __('Created At') }}</th>
 
-                                            @if ($canUpdate || $canDelete || $canDetail)
+                                            @if ($canUpdate || $canDelete)
                                                 <th>{{ __('Aksi') }}</th>
                                             @endif
                                         </tr>
@@ -96,29 +92,14 @@
                         orderable: false
                     },
                     {
-                        data: 'tanggal',
-                        name: 'tanggal'
+                        data: 'nama_kategori',
+                        name: 'nama_kategori'
                     },
                     {
-                        data: 'judul',
-                        name: 'judul'
-                    },
-                    {
-                        data: 'gambar',
-                        name: 'gambar'
+                        data: 'slug',
+                        name: 'slug'
                     },
 
-
-
-                    {
-                        data: 'tags',
-                        name: 'tags'
-                    },
-
-                    {
-                        data: 'kategori_id',
-                        name: 'kategori_id'
-                    },
                     {
                         data: 'created_at',
                         name: 'created_at'

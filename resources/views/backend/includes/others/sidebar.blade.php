@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">Stisla</a>
+            <a href="{{ url('/') }}">DESDM</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">St</a>
+            <a href="#">DE</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
@@ -14,21 +14,24 @@
 
             </li>
             <li class="menu-header">Post</li>
-            <li class="nav-item dropdown {{ request()->is('berita*') ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
-                    <span>Berita</span></a>
-                <ul class="dropdown-menu">
-                    <li class="{{ request()->is('berita/create') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/berita/create') }}">Tambah</a>
-                    </li>
-                    <li class="{{ request()->is('berita*') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('berita/') }}">Lihat</a>
-                    </li>
+            @if (Auth::user()->can('Berita'))
+                <li class="nav-item dropdown {{ request()->is('berita*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                            class="far fa-file-alt"></i>
+                        <span>Berita</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ request()->is('berita/create') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/berita/create') }}">Tambah</a>
+                        </li>
+                        <li class="{{ request()->is('berita') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('berita/') }}">Lihat</a>
+                        </li>
 
-                </ul>
-            </li>
-            <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('blank-page') }}"><i class="far fa-square"></i> <span>Menu</span></a>
+                    </ul>
+                </li>
+            @endif
+            <li class="{{ request()->is('kategori') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('kategori') }}"><i class="far fa-square"></i> <span>Kategori</span></a>
             </li>
             <li class="nav-item dropdown {{ $type_menu === 'bootstrap' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Galeri</span></a>
