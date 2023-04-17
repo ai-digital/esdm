@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('berita', BeritaController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::resource('products', ProductController::class);
+    // Route::resource('products', ProductController::class);
 });
 Route::get('/modules-datatables', function () {
     return view('backend.pages.modules-datatables', ['type_menu' => 'modules']);

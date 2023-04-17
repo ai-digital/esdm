@@ -223,8 +223,8 @@
                     <li class="{{ Request::is('auth-forgot-password') ? 'active' : '' }}">
                         <a href="{{ url('auth-forgot-password') }}">Lihat User</a>
                     </li>
-                    <li class="{{ Request::is('auth-login') ? 'active' : '' }}">
-                        <a href="{{ url('auth-login') }}">Role Management</a>
+                    <li class="{{ Request::is('role') ? 'active' : '' }}">
+                        <a href="{{ url('roles') }}">Role Management</a>
                     </li>
                     <li class="{{ Request::is('auth-login2') ? 'active' : '' }}">
                         <a class="beep beep-sidebar" href="{{ url('auth-login2') }}">Permission</a>
