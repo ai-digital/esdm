@@ -9,18 +9,6 @@
         "roles": ["superadmin", "admin", "user"]
 
     },
-
-    {
-        "name": "Log Aktivitas",
-        "roles": ["superadmin", "admin"]
-
-    },
-    {
-        "name": "Log Aktivitas Ekspor",
-        "roles": ["superadmin", "admin"]
-
-    },
-
     {
         "name": "Role",
         "roles": ["superadmin"]
@@ -46,7 +34,6 @@
         "roles": ["superadmin"]
 
     },
-
 
     {
         "name": "Permission",
@@ -75,8 +62,6 @@
 
     },
 
-
-
     {
         "name": "Pengguna",
         "roles": ["superadmin"]
@@ -84,11 +69,6 @@
     },
     {
         "name": "Pengguna Tambah",
-        "roles": ["superadmin"]
-
-    },
-    {
-        "name": "Pengguna Impor Excel",
         "roles": ["superadmin"]
 
     },
@@ -107,16 +87,6 @@
         "roles": ["superadmin"]
 
     },
-    {
-        "name": "Pengguna Ekspor",
-        "roles": ["superadmin"]
-
-    },
-    {
-        "name": "Pengguna Force Login",
-        "roles": ["superadmin"]
-
-    },
 
     {
         "name": "Pengaturan",
@@ -124,23 +94,9 @@
 
     },
 
-
-
     {
         "name": "Backup Database",
         "roles": ["superadmin"]
-
-    },
-
-    {
-        "name": "Log Viewer",
-        "roles": ["superadmin"]
-
-    },
-
-    {
-        "name": "Notifikasi",
-        "roles": ["superadmin", "admin"]
 
     },
 
@@ -168,5 +124,69 @@
     {
         "name": "Berita Hapus",
         "roles": ["superadmin", "admin", "user"]
+    },
+    {
+        "name": "Kategori",
+        "roles": ["superadmin"]
+    },
+    {
+        "name": "Kategori Detail",
+        "roles": ["superadmin"]
+    },
+    {
+        "name": "Kategori Ubah",
+        "roles": ["superadmin"]
+    },
+    {
+        "name": "Kategori Hapus",
+        "roles": ["superadmin"]
+    },
+    {
+        "name": "Halaman",
+        "roles": ["superadmin", "admin"]
+    },
+    {
+        "name": "Halaman Detail",
+        "roles": ["superadmin","admin"]
+    },
+    {
+        "name": "Halaman Ubah",
+        "roles": ["superadmin", "admin"]
+    },
+    {
+        "name": "Halaman Hapus",
+        "roles": ["superadmin", "admin"]
+    },
+    {
+        "name": "Galeri",
+        "roles": ["superadmin", "admin","user"]
+    },
+    {
+        "name": "Galeri Detail",
+        "roles": ["superadmin", "admin","user"]
+    },
+    {
+        "name": "Galeri Ubah",
+        "roles": ["superadmin", "admin","user"]
+    },
+    {
+        "name": "Galeri Hapus",
+        "roles": ["superadmin", "admin","user"]
+    },
+    {
+        "name": "Video",
+        "roles": ["superadmin", "admin","user"]
+    },
+    {
+        "name": "Video Detail",
+        "roles": ["superadmin", "admin","user"]
+    },
+    {
+        "name": "Video Ubah",
+        "roles": ["superadmin", "admin","user"]
+    },
+    {
+        "name": "Video Hapus",
+        "roles": ["superadmin", "admin","user"]
     }
 ]

@@ -149,6 +149,7 @@ class RoleController extends Controller
         $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
             ->where("role_has_permissions.role_id", $role->id)
             ->pluck('id', 'name');
+        dd($rolePermissions);
         // $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $role->id)
         //     ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
         //     ->all();
@@ -217,7 +218,7 @@ class RoleController extends Controller
         $role->save();
 
         $role->syncPermissions($request->input('permission'));
-
+        Alert::success('Berhasil!', 'Anda Telah Mengubah Role!');
         return redirect()->route('roles.index')
             ->with('success', 'Role updated successfully');
     }
@@ -230,6 +231,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         DB::table("roles")->where('id', $id)->delete();
-        return response()->json(['success' => true, 'message' => 'Data Sudah dihapus']);
+        Alert::error('Berhasil!', 'Anda Telah Menghapus Role!');
+        return \redirect()->back();
     }
 }
