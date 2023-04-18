@@ -37,7 +37,7 @@ class BeritaController extends Controller
         $title = __('Berita');
         $routeIndex = route('berita.index');
         $icon = $this->icon;
-        $data = Berita::orderBy('id', 'DESC')->get();
+        $data = Berita::orderBy('id', 'DESC');
         $routeCreate = route('berita.create');
         $type_menu = 'Dashboard';
         $isYajra = true;

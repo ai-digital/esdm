@@ -149,7 +149,7 @@ class RoleController extends Controller
         $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
             ->where("role_has_permissions.role_id", $role->id)
             ->pluck('id', 'name');
-        dd($rolePermissions);
+
         // $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $role->id)
         //     ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
         //     ->all();

@@ -25,7 +25,7 @@ class KategoriController extends Controller
         $title = __('Kategori');
         $routeIndex = route('kategori.index');
         $icon = $this->icon;
-        $data = Categories::orderBy('id', 'DESC')->get();
+        $data = Categories::orderBy('id', 'DESC');
         $routeCreate = route('kategori.create');
         $type_menu = 'Post';
         $isYajra = true;
@@ -51,10 +51,10 @@ class KategoriController extends Controller
                 ->make(true);
         }
         $user = auth()->user();
-        $canCreate = $user->can('Berita Tambah');
-        $canUpdate = $user->can('Berita Ubah');
-        $canDetail = $user->can('Berita Detail');
-        $canDelete = $user->can('Berita Hapus');
-        return view('backend.berita.index', get_defined_vars());
+        $canCreate = $user->can('Kategori Tambah');
+        $canUpdate = $user->can('Kategori Ubah');
+        $canDetail = $user->can('Kategori Detail');
+        $canDelete = $user->can('Kategori Hapus');
+        return view('backend.kategori.index', get_defined_vars());
     }
 }
