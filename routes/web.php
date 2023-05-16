@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoleController;
@@ -41,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('berita', BeritaController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::resource('kategori', KategoriController::class);
     // Route::resource('products', ProductController::class);
 });
 Route::get('/modules-datatables', function () {

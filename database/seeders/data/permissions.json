@@ -130,6 +130,10 @@
         "roles": ["superadmin"]
     },
     {
+        "name": "Kategori Tambah",
+        "roles": ["superadmin"]
+    },
+    {
         "name": "Kategori Detail",
         "roles": ["superadmin"]
     },
@@ -143,6 +147,10 @@
     },
     {
         "name": "Halaman",
+        "roles": ["superadmin", "admin"]
+    },
+    {
+        "name": "Halaman Tambah",
         "roles": ["superadmin", "admin"]
     },
     {
@@ -162,6 +170,10 @@
         "roles": ["superadmin", "admin","user"]
     },
     {
+        "name": "Galeri Tambah",
+        "roles": ["superadmin", "admin","user"]
+    },
+    {
         "name": "Galeri Detail",
         "roles": ["superadmin", "admin","user"]
     },
@@ -175,6 +187,10 @@
     },
     {
         "name": "Video",
+        "roles": ["superadmin", "admin","user"]
+    },
+    {
+        "name": "Video Tambah",
         "roles": ["superadmin", "admin","user"]
     },
     {

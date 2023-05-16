@@ -84,7 +84,7 @@
             var table = $('.yajra-datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('berita.index') }}",
+                ajax: "{{ route('kategori.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -95,10 +95,7 @@
                         data: 'nama_kategori',
                         name: 'nama_kategori'
                     },
-                    {
-                        data: 'slug',
-                        name: 'slug'
-                    },
+
 
                     {
                         data: 'created_at',

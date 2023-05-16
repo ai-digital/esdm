@@ -46,7 +46,7 @@
                                 <div class="col-md-12">
                                     @include('backend.includes.forms.inputs.input', [
                                         'required' => true,
-                                        'name' => 'kategori',
+                                        'name' => 'nama_kategori',
                                         'label' => 'Kategori',
                                     ])
                                 </div>
