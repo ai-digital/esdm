@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Categories extends Model
+class Video extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'kategori', 'slugs', 'user_id'];
+    protected $fillable = ['id', 'judul', 'keterangan', 'source', 'file', 'id_user'];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 }

@@ -12,11 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('galeris', function (Blueprint $table) {
+        Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table->string('judul', 100)->nullable();
-            $table->string('description')->nullable();
-            $table->string('files')->nullable();
+            $table->string('judul');
+            $table->string('keterangan')->nullable();
+            $table->enum('source', ['upload', 'youtube', 'vimeo', 'external_link']);
+            $table->string('file');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on("users")->onDelete('cascade');
             $table->timestamps();
@@ -30,6 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('galeris');
+        Schema::dropIfExists('videos');
     }
 };

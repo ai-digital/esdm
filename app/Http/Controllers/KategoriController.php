@@ -10,7 +10,7 @@ use Auth;
 
 class KategoriController extends Controller
 {
-    private string $icon = 'far fa-square';
+    private string $icon = 'fa-solid fa-list';
     public function __construct()
     {
 
@@ -102,7 +102,7 @@ class KategoriController extends Controller
         // --- save to database ---// 
         $x = new Categories();
         $x->nama_kategori = $request->nama_kategori;
-
+        $x->slugs = \Str::slug($request->nama_kategori);
         $x->user_id = auth()->user()->id;
         $x->save();
 
@@ -130,7 +130,7 @@ class KategoriController extends Controller
 
         $title = __('Kategori Edit');
         $routeIndex = route('kategori.index');
-        $kategori = Categories::pluck('nama_kategori', 'id');
+
         $breadcrumbs = [
             [
                 'label' => __('Dashboard'),
@@ -147,14 +147,14 @@ class KategoriController extends Controller
 
         return [
 
-            'd' => $kategori,
+            'd' => $Categories,
 
             'title' => $title,
             'fullTitle' => $isDetail ? __('Detail Kategori') : __('Ubah Kategori'),
             'routeIndex' => $routeIndex,
-            'action' => route('kategori.update', [$kategori->id]),
+            'action' => route('kategori.update', [$Categories->id]),
             'moduleIcon' => $this->icon,
-            'kategories' => $kategori,
+
             'isDetail' => $isDetail,
             'breadcrumbs' => $breadcrumbs,
             'type_menu' => 'Post',
@@ -166,10 +166,13 @@ class KategoriController extends Controller
      * @param  \App\Models\Categories  $Categories
      * @return \Illuminate\Http\Response
      */
-    public function edit($Categories)
+    public function edit($id)
     {
-        $kategori = Categories::find($Categories);
-
+        $kategori = Categories::findOrFail($id);
+        if ($kategori == null) {
+            abort(404);
+            exit;
+        }
 
         $data = $this->getDetail($kategori);
 
@@ -185,10 +188,11 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $bb = Categories::find($id);
-        //  dd($request->gambar);
+        $bb = Categories::findorFail($id);
 
-        $bb->kategori = $request->nama_kategori;
+
+        $bb->nama_kategori = $request->nama_kategori;
+        $bb->slugs = \Str::slug($request->nama_kategori);
 
 
         $bb->save();

@@ -31,10 +31,13 @@
                 </li>
             @endif
             <li class="{{ request()->is('kategori') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('kategori') }}"><i class="far fa-square"></i> <span>Kategori</span></a>
+                <a class="nav-link" href="{{ url('kategori') }}"><i class="fa-solid fa-list"></i>
+                    <span>Kategori</span></a>
             </li>
             <li class="nav-item dropdown {{ $type_menu === 'bootstrap' ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Galeri</span></a>
+                <a href="#" class="nav-link has-dropdown">
+                    <i class="fa-regular fa-image"></i> <span>Galeri</span>
+                </a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('bootstrap-alert') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('bootstrap-alert') }}">Alert</a>
