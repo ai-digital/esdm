@@ -73,7 +73,7 @@ class KategoriController extends Controller
             'isDetail' => false,
             'breadcrumbs' => [
                 [
-                    'label' => __('Dashboard'),
+                    'label' => __('Post'),
                     'link' => url('/')
                 ],
                 [
@@ -133,7 +133,7 @@ class KategoriController extends Controller
 
         $breadcrumbs = [
             [
-                'label' => __('Dashboard'),
+                'label' => __('Post'),
                 'link' => url('/home')
             ],
             [

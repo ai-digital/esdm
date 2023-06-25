@@ -14,6 +14,10 @@
 
             </li>
             <li class="menu-header">Post</li>
+            <li class="{{ request()->is('kategori') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('kategori') }}"><i class="fa-solid fa-list"></i>
+                    <span>Kategori</span></a>
+            </li>
             @if (Auth::user()->can('Berita'))
                 <li class="nav-item dropdown {{ request()->is('berita*') ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
@@ -21,7 +25,7 @@
                         <span>Berita</span></a>
                     <ul class="dropdown-menu">
                         <li class="{{ request()->is('berita/create') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ url('/berita/create') }}">Tambah</a>
+                            <a class="nav-link" href="{{ url('/berita/create') }}">Buat</a>
                         </li>
                         <li class="{{ request()->is('berita') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('berita/') }}">Lihat</a>
@@ -30,10 +34,7 @@
                     </ul>
                 </li>
             @endif
-            <li class="{{ request()->is('kategori') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('kategori') }}"><i class="fa-solid fa-list"></i>
-                    <span>Kategori</span></a>
-            </li>
+
             <li class="nav-item dropdown {{ $type_menu === 'bootstrap' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown">
                     <i class="fa-regular fa-image"></i> <span>Galeri</span>

@@ -20,30 +20,29 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::redirect('/', '/login');
-Route::get('/login', [LoginController::class, 'login'])->name('login.index')->middleware('guest');
+Route::redirect('/', '/superman');
+Route::get('/superman', [LoginController::class, 'login'])->name('superman')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login')->middleware('guest');
 
-Route::post('/logout', function () {
-    auth()->logout();
-    request()->session()->invalidate();
-    request()->session()->regenerateToken();
-
-    return redirect('/');
-})->name('logout')->middleware('auth');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+
 // Dashboard
 Route::get('/dashboard-general-dashboard', function () {
     return view('backend.pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
 });
-Route::group(['middleware' => ['auth']], function () {
-    Route::resource('berita', BeritaController::class);
-    Route::resource('roles', RoleController::class);
-    Route::resource('users', UserController::class);
-    Route::resource('kategori', KategoriController::class);
-    // Route::resource('products', ProductController::class);
+Route::group(['middleware' => 'prevent-back-history'], function () {
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::resource('berita', BeritaController::class);
+        Route::resource('roles', RoleController::class);
+        Route::resource('users', UserController::class);
+        Route::resource('kategori', KategoriController::class);
+        // Route::resource('products', ProductController::class);
+    });
 });
 Route::get('/modules-datatables', function () {
     return view('backend.pages.modules-datatables', ['type_menu' => 'modules']);

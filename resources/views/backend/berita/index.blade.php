@@ -4,7 +4,7 @@
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('stisla/library/datatables/media/css/jquery.dataTables.min.css') }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css"> --}}
 @endpush
 
 @section('content')
@@ -48,7 +48,7 @@
                                             <th>{{ __('Tags') }}</th>
                                             <th>{{ __('Kategori') }}</th>
 
-                                            <th>{{ __('Created At') }}</th>
+                                            <th>{{ __('Created By') }}</th>
 
                                             @if ($canUpdate || $canDelete || $canDetail)
                                                 <th>{{ __('Aksi') }}</th>
@@ -120,8 +120,8 @@
                         name: 'kategori_id'
                     },
                     {
-                        data: 'created_at',
-                        name: 'created_at'
+                        data: 'user_id',
+                        name: 'user_id'
                     },
 
                     {
@@ -179,5 +179,18 @@
                     }
                 });
         }
+        "use strict";
+
+
+        $.uploadPreview({
+            input_field: "#image-upload", // Default: .image-upload
+            preview_box: "#image-preview", // Default: .image-preview
+            label_field: "#image-label", // Default: .image-label
+            label_default: "Choose File", // Default: Choose File
+            label_selected: "Change File", // Default: Change File
+            no_label: false, // Default: false
+            success_callback: null // Default: null
+        });
+        $(".inputtags").tagsinput('items');
     </script>
 @endpush

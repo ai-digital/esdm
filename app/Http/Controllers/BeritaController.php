@@ -10,7 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
-use Nette\Utils\Random;
+
 
 class BeritaController extends Controller
 {
@@ -53,9 +53,11 @@ class BeritaController extends Controller
                 ->editColumn('kategori_id', function ($row) {
                     return $row->kategori->nama_kategori;
                 })
-                ->editColumn('tanggal', '{{\Carbon\Carbon::parse($created_at)->format("d/m/Y H:i:s")}}')
-                ->editColumn('created_at', '{{\Carbon\Carbon::parse($created_at)->format("Y-m-d H:i:s")}}')
-                ->editColumn('updated_at', '{{\Carbon\Carbon::parse($updated_at)->format("Y-m-d H:i:s")}}')
+                ->editColumn('tanggal', '{{\Carbon\Carbon::parse($tanggal)->format("d/m/Y H:i:s")}}')
+                ->editColumn('user_id', function ($row) {
+                    return $row->user->name;
+                })
+
                 ->editColumn('action', function ($item) {
                     $user = auth()->user();
                     $canUpdate = $user->can('Berita Ubah');
@@ -96,7 +98,7 @@ class BeritaController extends Controller
             'isDetail' => false,
             'breadcrumbs' => [
                 [
-                    'label' => __('Dashboard'),
+                    'label' => __('Post'),
                     'link' => url('/')
                 ],
                 [
@@ -135,7 +137,7 @@ class BeritaController extends Controller
         $slug = Str::slug($request->judul);
 
         $image = $request->file('gambar'); //image
-        $b = Str::limit($slug, 32, '-' . time()) . '.' . $image->getClientOriginalExtension(); //rename
+        $b = Str::limit($slug, 32) . '-' . \Carbon\Carbon::now()->timestamp . '.' . $image->getClientOriginalExtension(); //rename
 
         //create thumbnail
         $thumb = Image::make($image->getRealPath())->resize(128, 128, function ($constraint) {
@@ -196,7 +198,7 @@ class BeritaController extends Controller
         $kategories = Categories::pluck('nama_kategori', 'id');
         $breadcrumbs = [
             [
-                'label' => __('Dashboard'),
+                'label' => __('Post'),
                 'link' => url('/home')
             ],
             [
@@ -255,7 +257,7 @@ class BeritaController extends Controller
             @unlink(\public_path($bb->gambar));
             @unlink(\public_path($bb->thumbnail));
             $image = $request->file('gambar'); //image
-            $b = Str::limit($slug, 32, '-' . time()) . '.' . $image->getClientOriginalExtension(); //rename
+            $b = Str::limit($slug, 32) . '-' . \Carbon\Carbon::now()->timestamp . '.' . $image->getClientOriginalExtension(); //rename
 
             //create thumbnail
             $thumb = Image::make($image->getRealPath())->resize(128, 128, function ($constraint) {
