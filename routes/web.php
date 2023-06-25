@@ -7,7 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\FrontEndController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,8 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::redirect('/', '/superman');
+//Route::redirect('/', '/superman');
+Route::get('/', [FrontEndController::class, 'index']);
 Route::get('/superman', [LoginController::class, 'login'])->name('superman')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login')->middleware('guest');
 

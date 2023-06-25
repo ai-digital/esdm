@@ -29,7 +29,7 @@ class BeritaSeeder extends Seeder
                 'isi_berita' => $faker->paragraph(),
                 'slug' => \Str::slug($judul),
                 'gambar' => 'https://source.unsplash.com/random/1024x768/?portrait',
-                'thumbnail' => 'https://source.unsplash.com/random/128x80/?portrait',
+                'thumbnail' => 'https://source.unsplash.com/random/128x80/?portrait ',
                 'tags' => $faker->word(),
                 'kategori_id' => $faker->randomElement($kategoriIDs),
                 'user_id' => $faker->randomElement($userIDs),

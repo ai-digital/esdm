@@ -13,13 +13,21 @@ class FrontEndController extends Controller
 {
     public function index()
     {
-        $main_menu = Menu::all();
-        $berita = Berita::orderBy('created_at', 'DESC')->paginate(3);
-        $pengumuman = Pengumuman::orderBy('created_at', 'DESC')->paginate(4);
-        $galeri_head = Galeri::orderBy('created_at', 'DESC')->skip(0)->limit(1)->get();
-        $galeri_thumb = Galeri::orderBy('created_at', 'DESC')->skip(1)->limit(4)->get();
 
-        return view('index', compact('main_menu', 'berita', 'pengumuman', 'galeri_head', 'galeri_thumb'));
+        $berita = Berita::orderBy('tanggal', 'DESC')->take(3);
+        $title = 'Beranda';
+        $routeIndex = '/';
+        $breadcrumbs = [
+
+            [
+                'label' => $title,
+                'link' => $routeIndex
+            ],
+            [
+                'label' => 'Blank'
+            ]
+        ];
+        return view('frontend.isi.beranda', get_defined_vars());
     }
 
     public function berita()
